@@ -1,0 +1,154 @@
+body{
+    background-color: #f7f7f7 !important;
+    background-image: url('../img/bg.png');
+    padding: 0;
+    margin: 0;
+}
+
+div[class^='col-xs-'],
+input{
+    box-sizing: border-box;
+}
+
+#screen{
+    margin: 15px auto 10px;
+    text-align: center;
+    padding: 25px;
+    min-width: 800px;
+    max-width: 900px;
+    min-height: 600px;
+    max-height: 700px;
+}
+
+#viewbox{
+    display: inline-block;
+    position: relative;
+    border: 3px solid #eee;
+    border-right-width: 4px;
+    box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+}
+
+#grid{
+    background-color: #CFDCE4;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    border-spacing: 1px;
+    transform: rotateX(180deg);
+    border-left: 1px solid #CFDCE4;
+    border-top: 1px solid #CFDCE4;
+    vertical-align: bottom;
+}
+
+#canvas{
+    background-color: transparent;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 0.7;
+    transform: rotateX(180deg);
+}
+
+#panel{
+    position: relative;
+    background-color: #fff;
+    min-width: 800px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px 15px 30px;
+    box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.3);
+    border-radius: 1px 1px 0 0;
+}
+
+#panel > .col-xs-6{
+    padding: 0;
+}
+
+#panel h4{
+    padding: 0 15px;
+    margin: 10px 0 5px;
+}
+
+#panel label{
+    display: block;
+    font-size: 11px;
+    color: #777;
+    text-transform: uppercase;
+}
+
+#panel input[type="number"],
+#panel input[type="color"],
+#panel select{
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ABACAD;
+    background-color: transparent;
+    outline: none;
+    transition: 0.2s all;
+}
+
+#panel input[type="color"] {
+    padding: 0px 0px 2px;
+}
+
+#panel select {
+    margin-top: 2px;
+}
+
+#panel input[type="number"]:hover{
+    -moz-appearance: number-input;
+    border-color: #A8AAAB;
+}
+
+#panel input[type="number"]:focus{
+    border-color: #2196F3;
+    box-shadow: 0px 2px 1px -1px rgba(33,150,243,0.5);
+    -moz-appearance: number-input;
+}
+
+#palette{
+    width: 100%;
+    height: 42px;
+    border-spacing: 8px;
+}
+
+#palette td {
+    box-shadow: 0px 1px 6px -1px rgba(0,0,0,0.5);
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+}
+
+#palette td.selected:after{
+    content: '';
+    display: block;
+    position: absolute;
+    background-color: #2196F3;
+    top: 28px;
+    left: 0px;
+    width: 100%;
+    height: 3px;
+}
+
+#panel .footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    font-size: 11px;
+    color: #777;
+}
+
+#time{
+    position: absolute;
+    right: 0;
+    font-size: 12px;
+    bottom: -23px;
+    color: #777;
+}
