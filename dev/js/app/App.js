@@ -4,6 +4,8 @@ var App = new Application({
         'View.Grid',
         'View.Canvas',
         'View.Panel',
+        'Controller.Algorithms',
+        'Controller.Main'
     ],
     modulesPath: 'js/app/'
 });
