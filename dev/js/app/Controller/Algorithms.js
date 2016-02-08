@@ -11,11 +11,72 @@ App.define('Controller.Algorithms', {
             angle = 0;
 
         for(var t = 1; t <= 360; t++){
-            this.grid.activePixel( this.canvasToGrid(x, y), color, false);
-            
+            this.grid.activePixel(this.canvasToGrid(x, y), color, false);
+
             angle = (Math.PI * t)/180;
             x = center.x + (radius * Math.cos(angle));
             y = center.y + (radius * Math.sin(angle));
+        }
+
+        return this.getTimeStamp() - now;
+    },
+
+    bresenham: function(center, radius, color){
+
+        var now = this.getTimeStamp();
+            idealPoint = this.newPoint(0, radius),
+            pixelPoint = this.canvasToGrid(0, radius),
+            p = 5/4 - radius;
+
+        center = this.canvasToGrid(center.x, center.y);
+
+        while(pixelPoint.x <= pixelPoint.y){
+
+            //1º octante
+            this.grid.activePixel(this.newPoint(center.x + pixelPoint.y, center.y + pixelPoint.x), color, false);
+
+            //2º octante
+            this.grid.activePixel(this.newPoint(center.x + pixelPoint.x, center.y + pixelPoint.y), color, false);
+
+            //3º octante
+            this.grid.activePixel(this.newPoint(center.x - pixelPoint.x, center.y + pixelPoint.y), color, false);
+
+            //4º octante
+            this.grid.activePixel(this.newPoint(center.x - pixelPoint.y, center.y + pixelPoint.x), color, false);
+
+            //5º octante
+            this.grid.activePixel(this.newPoint(center.x - pixelPoint.y, center.y - pixelPoint.x), color, false);
+
+            //6º octante
+            this.grid.activePixel(this.newPoint(center.x - pixelPoint.x, center.y - pixelPoint.y), color, false);
+
+            //7º octante
+            this.grid.activePixel(this.newPoint(center.x + pixelPoint.x, center.y - pixelPoint.y), color, false);
+
+            //8º octante
+            this.grid.activePixel(this.newPoint(center.x + pixelPoint.y, center.y - pixelPoint.x), color, false);
+
+            if(p >= 0){
+
+                pixelPoint.y--;
+
+                //Encontra o ponto da circunferencia a partir do pixel atual
+                idealPoint = this.gridToCanvas(pixelPoint.x + 1 , pixelPoint.y - 1);
+
+                //Calcula o proximo P
+                p += (2 * idealPoint.x) - (2 * idealPoint.y) + 5;
+
+                pixelPoint.x++;
+            }
+            else{
+                //Encontra o ponto da circunferencia a partir do pixel atual
+                idealPoint = this.gridToCanvas(pixelPoint.x + 1, pixelPoint.y - 1);
+
+                //Calcula o proximo P
+                p += (2 * idealPoint.x) + 3;
+
+                pixelPoint.x++;
+            }
         }
 
         return this.getTimeStamp() - now;
@@ -39,6 +100,9 @@ App.define('Controller.Algorithms', {
         );
     },
 
+    /**
+        Converte um pixel da grid em um ponto do canvas(mm)
+    */
     gridToCanvas: function(x, y){
         return this.newPoint(
             (this.canvas.getViewBoxWidth() * x)/this.grid.fakeWidth,
