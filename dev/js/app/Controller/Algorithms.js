@@ -3,6 +3,24 @@ App.define('Controller.Algorithms', {
     grid: 'View.Grid',
     canvas: 'View.Canvas',
 
+    parametric: function(center, radius, color){
+
+        var now = this.getTimeStamp();
+            x = center.x + radius,
+            y = center.y,
+            angle = 0;
+
+        for(var t = 1; t <= 360; t++){
+            this.grid.activePixel( this.canvasToGrid(x, y), color, false);
+            
+            angle = (Math.PI * t)/180;
+            x = center.x + (radius * Math.cos(angle));
+            y = center.y + (radius * Math.sin(angle));
+        }
+
+        return this.getTimeStamp() - now;
+    },
+
     newPoint: function(x, y){
         return new this.util.Point(x, y);
     },
