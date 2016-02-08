@@ -21,6 +21,26 @@ App.define('Controller.Algorithms', {
         return this.getTimeStamp() - now;
     },
 
+    incremental: function(center, radius, color){
+
+        if(radius <= 0) return 0;
+
+        var now = this.getTimeStamp();
+            x = radius,
+            y = 0,
+            theta = 1/radius;
+
+        for(var alpha = 0; alpha < 6.3; alpha += theta){
+
+            x = (radius * Math.cos(alpha) * Math.cos(theta)) - (radius * Math.sin(alpha) * Math.sin(theta));
+            y = (radius * Math.cos(alpha) * Math.sin(theta)) + (radius * Math.sin(alpha) * Math.cos(theta));
+
+            this.grid.activePixel(this.canvasToGrid(center.x + x, center.y + y), color, false);
+        }
+
+        return this.getTimeStamp() - now;
+    },
+
     bresenham: function(center, radius, color){
 
         var now = this.getTimeStamp();
