@@ -39,6 +39,13 @@ App.define('Controller.Algorithms', {
         );
     },
 
+    gridToCanvas: function(x, y){
+        return this.newPoint(
+            (this.canvas.getViewBoxWidth() * x)/this.grid.fakeWidth,
+            (this.canvas.getViewBoxHeight() * y)/this.grid.fakeHeight
+        );
+    },
+
     /**
         Pega o tamanho de um pixel da grid
     */
