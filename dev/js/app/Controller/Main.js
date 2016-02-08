@@ -7,16 +7,28 @@ App.define('Controller.Main', {
     $time: '#time',
 
     algorithm: null,
-    gridColor: {red: 255, green: 0, blue: 0},
+    gridColor: {red: 0, green: 0, blue: 0},
 
     render: function(center, radius){
 
         if(this.algorithm === null) return;
-        this.grid.clearFrame(false);
 
+        this.grid.clearFrame(false);
         var time = 0;
 
-        //Selecionar o algoritimo
+        switch (this.algorithm) {
+            case 'incremental':
+                time = this.algorithms.incremental(center, radius, this.gridColor);
+            break;
+
+            case 'bresenham':
+                time = this.algorithms.bresenham(center, radius, this.gridColor);
+            break;
+
+            case 'parametric':
+            default:
+                time = this.algorithms.parametric(center, radius, this.gridColor);
+        }
 
         this.grid.update();
         this.$time.find('span').html((time).toFixed(5));
@@ -61,6 +73,7 @@ App.define('Controller.Main', {
         me.panel.setCenter(400, 300);
         me.panel.setRadius(200);
         me.panel.setResolution(7);
+        me.panel.setAlgorithm('parametric');
     },
 
     init: function(){
